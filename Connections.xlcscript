@@ -41,8 +41,10 @@
         "Range": "$B$2:$D$8",
         "TableName": "tResult",
         "DynamicColumns": true,
-        "Name": "Result",
-        "CatchNames": [],
+        "Name": "Connections",
+        "CatchNames": [
+          "Result"
+        ],
         "Description": null,
         "ValidationMessage": null
       }
@@ -92,8 +94,10 @@
           "Range": "$B$2:$D$8",
           "TableName": "tResult",
           "DynamicColumns": true,
-          "Name": "Result",
-          "CatchNames": [],
+          "Name": "Connections",
+          "CatchNames": [
+            "Result"
+          ],
           "Description": null,
           "ValidationMessage": null
         }
