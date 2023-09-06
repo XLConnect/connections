@@ -1,11 +1,10 @@
 {
   "ConType": "Api",
-  "Name": "Accounts",
+  "Name": "Connections",
   "RunOnWorkbookOpen": false,
-  "Transform": "xero = require('xero.js')\r\n\r\ntenant = Connections.find(c => c.Pull)\r\nif(!tenant)throw \"Please select one tenant with an 'x' in Pull\" \r\n\r\nxero.accounts(tenant.TenantId)",
+  "Transform": "xero = require('xero.js')\r\nconns = xero.connections()\r\n\r\no = { \r\n\tConnections : conns.map(c => ({\r\n\t\tTenantId : c.tenantId,\r\n\t\tTenantName : c.tenantName,\r\n\t\tPull : null\r\n\t}))\r\n}",
   "ShowGui": true,
   "UrlHeaderMap": {
-    "DirtyKeyOffsets": null,
     "MessageType": null,
     "ConType": "Map",
     "DefaultFolder": null,
@@ -14,23 +13,7 @@
     "PathTemplate": "{wb.loc}/{Name}.{ext}",
     "DynamicConnections": true,
     "HasKeyFields": false,
-    "Children": [
-      {
-        "DirtyKeyOffsets": null,
-        "SerializationFormat": 1,
-        "ConType": "Table",
-        "Worksheet": "Sheet1",
-        "Range": "$B$2:$D$8",
-        "TableName": "tResult",
-        "DynamicColumns": false,
-        "Name": "Connections",
-        "CatchNames": [
-          "tResult"
-        ],
-        "Description": null,
-        "ValidationMessage": null
-      }
-    ],
+    "Children": [],
     "Worksheet": null,
     "Range": null,
     "Name": "Input",
@@ -39,7 +22,6 @@
     "ValidationMessage": null
   },
   "ReplyMap": {
-    "DirtyKeyOffsets": null,
     "MessageType": null,
     "ConType": "Map",
     "DefaultFolder": null,
@@ -50,17 +32,14 @@
     "HasKeyFields": false,
     "Children": [
       {
-        "DirtyKeyOffsets": null,
         "SerializationFormat": 1,
         "ConType": "Table",
         "Worksheet": "Sheet1",
-        "Range": "$B$11:$T$142",
-        "TableName": "tAccounts",
+        "Range": "$B$2:$D$8",
+        "TableName": "Connections",
         "DynamicColumns": true,
-        "Name": "Accounts",
-        "CatchNames": [
-          "Result"
-        ],
+        "Name": "Connections",
+        "CatchNames": [],
         "Description": null,
         "ValidationMessage": null
       }
@@ -74,7 +53,6 @@
   },
   "Children": [
     {
-      "DirtyKeyOffsets": null,
       "MessageType": null,
       "ConType": "Map",
       "DefaultFolder": null,
@@ -83,23 +61,7 @@
       "PathTemplate": "{wb.loc}/{Name}.{ext}",
       "DynamicConnections": true,
       "HasKeyFields": false,
-      "Children": [
-        {
-          "DirtyKeyOffsets": null,
-          "SerializationFormat": 1,
-          "ConType": "Table",
-          "Worksheet": "Sheet1",
-          "Range": "$B$2:$D$8",
-          "TableName": "tResult",
-          "DynamicColumns": false,
-          "Name": "Connections",
-          "CatchNames": [
-            "tResult"
-          ],
-          "Description": null,
-          "ValidationMessage": null
-        }
-      ],
+      "Children": [],
       "Worksheet": null,
       "Range": null,
       "Name": "Input",
@@ -108,7 +70,6 @@
       "ValidationMessage": null
     },
     {
-      "DirtyKeyOffsets": null,
       "MessageType": null,
       "ConType": "Map",
       "DefaultFolder": null,
@@ -119,17 +80,14 @@
       "HasKeyFields": false,
       "Children": [
         {
-          "DirtyKeyOffsets": null,
           "SerializationFormat": 1,
           "ConType": "Table",
           "Worksheet": "Sheet1",
-          "Range": "$B$11:$T$142",
-          "TableName": "tAccounts",
+          "Range": "$B$2:$D$8",
+          "TableName": "Connections",
           "DynamicColumns": true,
-          "Name": "Accounts",
-          "CatchNames": [
-            "Result"
-          ],
+          "Name": "Connections",
+          "CatchNames": [],
           "Description": null,
           "ValidationMessage": null
         }
