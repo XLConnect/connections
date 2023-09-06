@@ -1,11 +1,10 @@
 {
   "ConType": "Api",
-  "Name": "Connections",
+  "Name": "Account",
   "RunOnWorkbookOpen": false,
-  "Transform": "xero = require('xero.js')\r\nPull = null\r\nxero.connections().map(acc => ({\r\n\tTenantId : acc.tenantId,\r\n\tTenantName : acc.tenantName, \r\n\tPull : null}))",
+  "Transform": "visma = require('visma.js')\r\nacc = visma.account()\r\n\r\no = {\r\n\tAccount : acc\r\n}",
   "ShowGui": true,
   "UrlHeaderMap": {
-    "DirtyKeyOffsets": null,
     "MessageType": null,
     "ConType": "Map",
     "DefaultFolder": null,
@@ -23,7 +22,6 @@
     "ValidationMessage": null
   },
   "ReplyMap": {
-    "DirtyKeyOffsets": null,
     "MessageType": null,
     "ConType": "Map",
     "DefaultFolder": null,
@@ -34,17 +32,14 @@
     "HasKeyFields": false,
     "Children": [
       {
-        "DirtyKeyOffsets": null,
         "SerializationFormat": 1,
         "ConType": "Table",
-        "Worksheet": "Sheet1",
-        "Range": "$B$2:$D$8",
-        "TableName": "tResult",
-        "DynamicColumns": true,
-        "Name": "Connections",
-        "CatchNames": [
-          "Result"
-        ],
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
+        "DynamicColumns": false,
+        "Name": "Account",
+        "CatchNames": [],
         "Description": null,
         "ValidationMessage": null
       }
@@ -58,7 +53,6 @@
   },
   "Children": [
     {
-      "DirtyKeyOffsets": null,
       "MessageType": null,
       "ConType": "Map",
       "DefaultFolder": null,
@@ -76,7 +70,6 @@
       "ValidationMessage": null
     },
     {
-      "DirtyKeyOffsets": null,
       "MessageType": null,
       "ConType": "Map",
       "DefaultFolder": null,
@@ -87,17 +80,14 @@
       "HasKeyFields": false,
       "Children": [
         {
-          "DirtyKeyOffsets": null,
           "SerializationFormat": 1,
           "ConType": "Table",
-          "Worksheet": "Sheet1",
-          "Range": "$B$2:$D$8",
-          "TableName": "tResult",
-          "DynamicColumns": true,
-          "Name": "Connections",
-          "CatchNames": [
-            "Result"
-          ],
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
+          "DynamicColumns": false,
+          "Name": "Account",
+          "CatchNames": [],
           "Description": null,
           "ValidationMessage": null
         }
