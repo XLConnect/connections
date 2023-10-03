@@ -1,8 +1,8 @@
 {
   "ConType": "Api",
-  "Name": "Accounts",
+  "Name": "PurchaseOrder",
   "RunOnWorkbookOpen": false,
-  "Transform": "xero = require('xero.js')\r\n\r\n// find selected tenant\r\ntenantId = xero.getMarkedTenantId(Connections)\r\n\r\n// pull accounts from Xero\r\naccounts = xero.accounts(tenantId)\r\n\r\n// create named reply\r\no = { \r\n\tAccounts : accounts\r\n}",
+  "Transform": "visma = require('visma.js')\r\nPurchaseOrder = visma.purchaseOrder()\r\no = { \r\n\tPurchaseOrder\r\n}",
   "ShowGui": true,
   "UrlHeaderMap": {
     "MessageType": null,
@@ -13,20 +13,7 @@
     "PathTemplate": "{wb.loc}/{Name}.{ext}",
     "DynamicConnections": true,
     "HasKeyFields": false,
-    "Children": [
-      {
-        "SerializationFormat": 1,
-        "ConType": "Table",
-        "Worksheet": "Sheet1",
-        "Range": "$B$5:$D$11",
-        "TableName": "Connections",
-        "DynamicColumns": true,
-        "Name": "Connections",
-        "CatchNames": [],
-        "Description": null,
-        "ValidationMessage": null
-      }
-    ],
+    "Children": [],
     "Worksheet": null,
     "Range": null,
     "Name": "Input",
@@ -50,8 +37,8 @@
         "Worksheet": null,
         "Range": null,
         "TableName": null,
-        "DynamicColumns": true,
-        "Name": "Accounts",
+        "DynamicColumns": false,
+        "Name": "PurchaseOrder",
         "CatchNames": [],
         "Description": null,
         "ValidationMessage": null
@@ -74,20 +61,7 @@
       "PathTemplate": "{wb.loc}/{Name}.{ext}",
       "DynamicConnections": true,
       "HasKeyFields": false,
-      "Children": [
-        {
-          "SerializationFormat": 1,
-          "ConType": "Table",
-          "Worksheet": "Sheet1",
-          "Range": "$B$5:$D$11",
-          "TableName": "Connections",
-          "DynamicColumns": true,
-          "Name": "Connections",
-          "CatchNames": [],
-          "Description": null,
-          "ValidationMessage": null
-        }
-      ],
+      "Children": [],
       "Worksheet": null,
       "Range": null,
       "Name": "Input",
@@ -111,8 +85,8 @@
           "Worksheet": null,
           "Range": null,
           "TableName": null,
-          "DynamicColumns": true,
-          "Name": "Accounts",
+          "DynamicColumns": false,
+          "Name": "PurchaseOrder",
           "CatchNames": [],
           "Description": null,
           "ValidationMessage": null
