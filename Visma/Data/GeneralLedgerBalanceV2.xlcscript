@@ -2,7 +2,7 @@
   "ConType": "Api",
   "Name": "GeneralLedgerBalanceV2",
   "RunOnWorkbookOpen": false,
-  "Transform": "visma = require('visma.js')\r\ngl = visma.generalLedgerBalanceV2(PeriodId)\r\n\r\no = {\r\n\tGeneralLedger : gl\r\n}",
+  "Transform": "visma = require('visma.js')\r\ngl = visma.generalLedgerBalanceV2({PeriodId})\r\n\r\no = {\r\n\tGeneralLedger : gl\r\n}",
   "ShowGui": true,
   "UrlHeaderMap": {
     "MessageType": null,
