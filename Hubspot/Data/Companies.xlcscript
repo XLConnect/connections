@@ -1,0 +1,103 @@
+{
+  "ConType": "Api",
+  "Name": "Companies",
+  "RunOnWorkbookOpen": false,
+  "Transform": "hubspot = require('hubspot.js')\r\no = {\r\n\tCompanies : hubspot.companies()\r\n}\r\n",
+  "ShowGui": true,
+  "UrlHeaderMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 1,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Input",
+    "CatchNames": [],
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "ReplyMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 2,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
+        "DynamicColumns": false,
+        "Name": "Companies",
+        "CatchNames": [],
+        "Description": null,
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Output",
+    "CatchNames": [],
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "Children": [
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 1,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Input",
+      "CatchNames": [],
+      "Description": null,
+      "ValidationMessage": null
+    },
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 2,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
+          "DynamicColumns": false,
+          "Name": "Companies",
+          "CatchNames": [],
+          "Description": null,
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Output",
+      "CatchNames": [],
+      "Description": null,
+      "ValidationMessage": null
+    }
+  ]
+}
