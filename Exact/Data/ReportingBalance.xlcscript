@@ -1,0 +1,125 @@
+{
+  "ConType": "Api",
+  "Name": "ReportingBalance",
+  "RunOnWorkbookOpen": false,
+  "Transform": "exact = require('exact.js')\r\n\r\n// create filters \r\nselect = 'ReportingYear,ReportingPeriod,GLAccountCode,Amount'\r\nfilter = ReportingYear ? `ReportingYear eq ${ReportingYear}` : null\r\n\t\r\no = {\r\n\tReportingBalance : exact.ReportingBalance(select, filter)\r\n}\r\n",
+  "ShowGui": true,
+  "UrlHeaderMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 1,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "ReportingYear",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": "Sheet1",
+        "Range": "$K$2",
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Input",
+    "CatchNames": [],
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "ReplyMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 2,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": "Sheet1",
+        "Range": "$K$11:$N$71",
+        "TableName": "ReportingBalance",
+        "DynamicColumns": true,
+        "Name": "ReportingBalance",
+        "CatchNames": [],
+        "Description": null,
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Output",
+    "CatchNames": [],
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "Children": [
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 1,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "ReportingYear",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": "Sheet1",
+          "Range": "$K$2",
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Input",
+      "CatchNames": [],
+      "Description": null,
+      "ValidationMessage": null
+    },
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 2,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": "Sheet1",
+          "Range": "$K$11:$N$71",
+          "TableName": "ReportingBalance",
+          "DynamicColumns": true,
+          "Name": "ReportingBalance",
+          "CatchNames": [],
+          "Description": null,
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Output",
+      "CatchNames": [],
+      "Description": null,
+      "ValidationMessage": null
+    }
+  ]
+}

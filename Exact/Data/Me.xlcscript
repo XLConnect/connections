@@ -1,0 +1,881 @@
+{
+  "ConType": "Api",
+  "Name": "Me",
+  "RunOnWorkbookOpen": false,
+  "Transform": "exact = require('exact.js')\r\nexact.Me()",
+  "ShowGui": true,
+  "UrlHeaderMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 1,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Input",
+    "CatchNames": [],
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "ReplyMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 2,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "ConType": "Object",
+        "Children": [
+          {
+            "ConType": "Prop",
+            "IsKey": false,
+            "Name": "uri",
+            "CatchNames": [],
+            "Description": null,
+            "Worksheet": null,
+            "Range": null,
+            "ValidationMessage": null
+          },
+          {
+            "ConType": "Prop",
+            "IsKey": false,
+            "Name": "type",
+            "CatchNames": [],
+            "Description": null,
+            "Worksheet": null,
+            "Range": null,
+            "ValidationMessage": null
+          }
+        ],
+        "Worksheet": null,
+        "Range": null,
+        "Name": "__metadata",
+        "CatchNames": [],
+        "Description": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "CurrentDivision",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "DivisionCustomer",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "DivisionCustomerCode",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "DivisionCustomerName",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "DivisionCustomerVatNumber",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "DivisionCustomerSiretNumber",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "DossierDivision",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "AccountingDivision",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "IsEmployeeSelfServiceUser",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "IsMyFirmLiteUser",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "IsStarterUser",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "IsMyFirmPortalUser",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "IsClientUser",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "FullName",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "PictureUrl",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "ThumbnailPicture",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "ThumbnailPictureFormat",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "UserID",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "UserName",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "LanguageCode",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Legislation",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Email",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Title",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Initials",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "FirstName",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "MiddleName",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "LastName",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Gender",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Nationality",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Language",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Phone",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "PhoneExtension",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Mobile",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "ServerTime",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "ServerUtcOffset",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "EmployeeID",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "CustomerCode",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Output",
+    "CatchNames": [],
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "Children": [
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 1,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Input",
+      "CatchNames": [],
+      "Description": null,
+      "ValidationMessage": null
+    },
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 2,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "ConType": "Object",
+          "Children": [
+            {
+              "ConType": "Prop",
+              "IsKey": false,
+              "Name": "uri",
+              "CatchNames": [],
+              "Description": null,
+              "Worksheet": null,
+              "Range": null,
+              "ValidationMessage": null
+            },
+            {
+              "ConType": "Prop",
+              "IsKey": false,
+              "Name": "type",
+              "CatchNames": [],
+              "Description": null,
+              "Worksheet": null,
+              "Range": null,
+              "ValidationMessage": null
+            }
+          ],
+          "Worksheet": null,
+          "Range": null,
+          "Name": "__metadata",
+          "CatchNames": [],
+          "Description": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "CurrentDivision",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "DivisionCustomer",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "DivisionCustomerCode",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "DivisionCustomerName",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "DivisionCustomerVatNumber",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "DivisionCustomerSiretNumber",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "DossierDivision",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "AccountingDivision",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "IsEmployeeSelfServiceUser",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "IsMyFirmLiteUser",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "IsStarterUser",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "IsMyFirmPortalUser",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "IsClientUser",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "FullName",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "PictureUrl",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "ThumbnailPicture",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "ThumbnailPictureFormat",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "UserID",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "UserName",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "LanguageCode",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Legislation",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Email",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Title",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Initials",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "FirstName",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "MiddleName",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "LastName",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Gender",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Nationality",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Language",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Phone",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "PhoneExtension",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Mobile",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "ServerTime",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "ServerUtcOffset",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "EmployeeID",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "CustomerCode",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Output",
+      "CatchNames": [],
+      "Description": null,
+      "ValidationMessage": null
+    }
+  ]
+}

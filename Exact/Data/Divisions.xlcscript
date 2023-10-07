@@ -1,0 +1,103 @@
+{
+  "ConType": "Api",
+  "Name": "Divisions",
+  "RunOnWorkbookOpen": false,
+  "Transform": "exact = require('exact.js')\r\no = {\r\n\tDivisions : exact.Divisions().map(d => ({ Code: d.Code, Name : d.CustomerName, Pull : null}))\r\n}\r\n",
+  "ShowGui": true,
+  "UrlHeaderMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 1,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Input",
+    "CatchNames": [],
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "ReplyMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 2,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": "Sheet1",
+        "Range": "$B$2:$D$3",
+        "TableName": "Divisions",
+        "DynamicColumns": true,
+        "Name": "Divisions",
+        "CatchNames": [],
+        "Description": null,
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Output",
+    "CatchNames": [],
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "Children": [
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 1,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Input",
+      "CatchNames": [],
+      "Description": null,
+      "ValidationMessage": null
+    },
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 2,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": "Sheet1",
+          "Range": "$B$2:$D$3",
+          "TableName": "Divisions",
+          "DynamicColumns": true,
+          "Name": "Divisions",
+          "CatchNames": [],
+          "Description": null,
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Output",
+      "CatchNames": [],
+      "Description": null,
+      "ValidationMessage": null
+    }
+  ]
+}
