@@ -1,0 +1,277 @@
+{
+  "ConType": "Api",
+  "Name": "Pull Data",
+  "RunOnWorkbookOpen": false,
+  "Transform": "xlc.setProgressMessage('Pulling data from Xero..')\r\n\r\nutil = require('util.js')\r\nxero = require('xero.js')\r\n\r\n//xero.connections()\r\ntoDate = util.isoDate(Year, MonthNo+1, 0)\r\nMonthStart =  util.isoDate(Year, MonthNo, 1)\r\n\r\nxlc.setProgressMax(MonthNo+6)\r\nprogress = 0\r\n\r\n// grab accounts \r\ncoa = xero.accounts(TenantID)\r\ncoa.push({\r\n\tAccountID : 'FXGROUPID',\r\n\tCode : 'FXGROUPID',\r\n\tClass : 'EXPENSE',\r\n\tType : 'EXPENSE'\r\n})\r\n\r\nif(COA_Old){\r\n\t// copy over existing values to retain them \r\n\tcoa.forEach(c => {\r\n\t\tc.Rollup = COA_Old.find(o => o.AccountID == c.AccountID)?.Rollup\r\n\t\tc.CostAnalysisGroup = COA_Old.find(o => o.AccountID == c.AccountID)?.CostAnalysisGroup\r\n\t}) // copy old mapping over to latest COA\r\n} else {\r\n\t// add columns so they're in the table already\r\n\tcoa.forEach(c => {\r\n\t\tc.Rollup = ''\r\n\t\tc.CostAnalysisGroup = ''\r\n\t})\t\r\n}\r\nobjCOA = Object.fromEntries(coa.map(a => [a.AccountID, a]))\r\n\r\n\r\n\r\n// grab PL data ________________________________________________\r\nperiods = xero.periods(toDate, MonthNo)\r\nplAccrual = []\r\nfor(period of periods){\r\n\t\r\n\txlc.setProgressValue(++progress)\r\n\txlc.setProgressMessage('Grabbing P&L data for ' + period.budgetPeriod + '...')\r\n\t\r\n\tpl = xero.profitAndLoss(TenantID, null, period.fromDate, period.toDate, 'Accrual', null, null)\r\n\tplAccrual = plAccrual.concat(pl)\r\n}\r\nfor(row of plAccrual){\r\n\tacc=objCOA[row.AccountID]\r\n\tif(acc){\r\n\t\trow.Code = acc.Code\r\n\t\trow.Type = acc.Type\r\n\t\trow.Class = acc.Class\r\n\t}\r\n}\r\n\r\n\r\n// grab BS data ________________________________________________\r\nperiods = xero.periods(toDate, 6)\r\nbsAccrual = []\r\nfor(period of periods){\r\n\t\r\n\txlc.setProgressValue(++progress)\r\n\txlc.setProgressMessage('Grabbing BS data for ' + period.budgetPeriod + '...')\r\n\t\r\n\tbs = xero.balanceSheet(TenantID, period.toDate, 'Accrual')\r\n\tbsAccrual = bsAccrual.concat(bs)\r\n}\r\nfor(row of bsAccrual){\r\n\tacc=objCOA[row.AccountID]\r\n\tif(acc){\r\n\t\trow.Code = acc.Code\r\n\t\trow.Type = acc.Type\r\n\t\trow.Class = acc.Type\r\n\t}\r\n}\r\n\r\n/*\r\n// Cost analysis ________________________________________________\r\njournals = xero.pullJournals(TenantID, '34 st. James Street', 'Accrual', MonthStart, toDate)\r\nexpenseAccounts = coa\r\n\t.filter(a => a.Class == 'EXPENSE')\r\n\t.filter(a => a.Type != 'DIRECTCOSTS')\r\n\t.map(a => a.Code)\r\n\r\ncostJournals = journals\r\n\t\t.filter(j => expenseAccounts.includes(j.AccountCode))\r\n\t\t.sort((a, b) => a.AccountCode.localeCompare(b.AccountCode) || a.JournalDate.localeCompare(b.JournalDate) || a.JournalNumber - b.JournalNumber)\r\n\r\n*/\r\n\r\n// create COAs ________________________________________________\r\nplClasses = ['REVENUE','EXPENSE']\r\ncoa.forEach(acc => acc.Side = plClasses.includes(acc.Class) ? 'PL' : 'BS')\r\n\r\n//create reply ________________________________________________\r\no = {\t\r\n\tplAccrual,\r\n\tbsAccrual,\r\n//\tcostJournals,\r\n\tCOA : coa\r\n}\r\n\r\n\r\n\r\n",
+  "ShowGui": true,
+  "UrlHeaderMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 1,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "TenantID",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": "Pull Settings",
+        "Range": "$C$14",
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Year",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": "Pull Settings",
+        "Range": "$C$2",
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "MonthNo",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": "Pull Settings",
+        "Range": "$C$16",
+        "ValidationMessage": null
+      },
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
+        "DynamicColumns": false,
+        "Name": "COA_Old",
+        "CatchNames": [
+          "tplCOA"
+        ],
+        "Description": null,
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Input",
+    "CatchNames": [
+      "Params"
+    ],
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "ReplyMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 2,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": "XLC PL Data",
+        "Range": "$A$1:$I$945",
+        "TableName": "tplAccrual",
+        "DynamicColumns": false,
+        "Name": "plAccrual",
+        "CatchNames": [],
+        "Description": null,
+        "ValidationMessage": null
+      },
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": "XLC BS Data",
+        "Range": "$A$1:$F$293",
+        "TableName": "tbsAccrual",
+        "DynamicColumns": false,
+        "Name": "bsAccrual",
+        "CatchNames": [],
+        "Description": null,
+        "ValidationMessage": null
+      },
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": "COA Config",
+        "Range": "$A$1:$H$177",
+        "TableName": "tplCOA",
+        "DynamicColumns": false,
+        "Name": "COA",
+        "CatchNames": [
+          "plCOA"
+        ],
+        "Description": null,
+        "ValidationMessage": null
+      },
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": "Cost Analysis table",
+        "Range": "$A$1:$O$1343",
+        "TableName": "tcostJournals",
+        "DynamicColumns": false,
+        "Name": "costJournals",
+        "CatchNames": [],
+        "Description": null,
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Output",
+    "CatchNames": [
+      "Reply"
+    ],
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "Children": [
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 1,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "TenantID",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": "Pull Settings",
+          "Range": "$C$14",
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Year",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": "Pull Settings",
+          "Range": "$C$2",
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "MonthNo",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": "Pull Settings",
+          "Range": "$C$16",
+          "ValidationMessage": null
+        },
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
+          "DynamicColumns": false,
+          "Name": "COA_Old",
+          "CatchNames": [
+            "tplCOA"
+          ],
+          "Description": null,
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Input",
+      "CatchNames": [
+        "Params"
+      ],
+      "Description": null,
+      "ValidationMessage": null
+    },
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 2,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": "XLC PL Data",
+          "Range": "$A$1:$I$945",
+          "TableName": "tplAccrual",
+          "DynamicColumns": false,
+          "Name": "plAccrual",
+          "CatchNames": [],
+          "Description": null,
+          "ValidationMessage": null
+        },
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": "XLC BS Data",
+          "Range": "$A$1:$F$293",
+          "TableName": "tbsAccrual",
+          "DynamicColumns": false,
+          "Name": "bsAccrual",
+          "CatchNames": [],
+          "Description": null,
+          "ValidationMessage": null
+        },
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": "COA Config",
+          "Range": "$A$1:$H$177",
+          "TableName": "tplCOA",
+          "DynamicColumns": false,
+          "Name": "COA",
+          "CatchNames": [
+            "plCOA"
+          ],
+          "Description": null,
+          "ValidationMessage": null
+        },
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": "Cost Analysis table",
+          "Range": "$A$1:$O$1343",
+          "TableName": "tcostJournals",
+          "DynamicColumns": false,
+          "Name": "costJournals",
+          "CatchNames": [],
+          "Description": null,
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Output",
+      "CatchNames": [
+        "Reply"
+      ],
+      "Description": null,
+      "ValidationMessage": null
+    }
+  ]
+}
