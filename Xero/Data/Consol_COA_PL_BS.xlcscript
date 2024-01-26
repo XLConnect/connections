@@ -18,7 +18,7 @@
         "SerializationFormat": 1,
         "ConType": "Table",
         "Worksheet": "Sheet1",
-        "Range": "$E$6:$G$18",
+        "Range": "$E$7:$G$19",
         "TableName": "Connections",
         "DynamicColumns": false,
         "Name": "Connections",
@@ -32,8 +32,8 @@
         "Name": "Year",
         "CatchNames": [],
         "Description": null,
-        "Worksheet": "Sheet1",
-        "Range": "$J$6",
+        "Worksheet": null,
+        "Range": null,
         "ValidationMessage": null
       },
       {
@@ -42,8 +42,8 @@
         "Name": "Month",
         "CatchNames": [],
         "Description": null,
-        "Worksheet": "Sheet1",
-        "Range": "$J$7",
+        "Worksheet": null,
+        "Range": null,
         "ValidationMessage": null
       },
       {
@@ -52,8 +52,8 @@
         "Name": "Periods",
         "CatchNames": [],
         "Description": null,
-        "Worksheet": "Sheet1",
-        "Range": "$J$8",
+        "Worksheet": null,
+        "Range": null,
         "ValidationMessage": null
       },
       {
@@ -91,9 +91,9 @@
       {
         "SerializationFormat": 1,
         "ConType": "Table",
-        "Worksheet": "COA",
-        "Range": "$A$1:$U$557",
-        "TableName": "COA",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
         "DynamicColumns": true,
         "Name": "COA",
         "CatchNames": [],
@@ -103,9 +103,9 @@
       {
         "SerializationFormat": 1,
         "ConType": "Table",
-        "Worksheet": "PL",
-        "Range": "$A$1:$K$35",
-        "TableName": "PL",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
         "DynamicColumns": true,
         "Name": "PL",
         "CatchNames": [],
@@ -115,9 +115,9 @@
       {
         "SerializationFormat": 1,
         "ConType": "Table",
-        "Worksheet": "BS",
-        "Range": "$A$1:$I$4",
-        "TableName": "BS",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
         "DynamicColumns": true,
         "Name": "BS",
         "CatchNames": [],
@@ -157,7 +157,7 @@
           "SerializationFormat": 1,
           "ConType": "Table",
           "Worksheet": "Sheet1",
-          "Range": "$E$6:$G$18",
+          "Range": "$E$7:$G$19",
           "TableName": "Connections",
           "DynamicColumns": false,
           "Name": "Connections",
@@ -171,8 +171,8 @@
           "Name": "Year",
           "CatchNames": [],
           "Description": null,
-          "Worksheet": "Sheet1",
-          "Range": "$J$6",
+          "Worksheet": null,
+          "Range": null,
           "ValidationMessage": null
         },
         {
@@ -181,8 +181,8 @@
           "Name": "Month",
           "CatchNames": [],
           "Description": null,
-          "Worksheet": "Sheet1",
-          "Range": "$J$7",
+          "Worksheet": null,
+          "Range": null,
           "ValidationMessage": null
         },
         {
@@ -191,8 +191,8 @@
           "Name": "Periods",
           "CatchNames": [],
           "Description": null,
-          "Worksheet": "Sheet1",
-          "Range": "$J$8",
+          "Worksheet": null,
+          "Range": null,
           "ValidationMessage": null
         },
         {
@@ -230,9 +230,9 @@
         {
           "SerializationFormat": 1,
           "ConType": "Table",
-          "Worksheet": "COA",
-          "Range": "$A$1:$U$557",
-          "TableName": "COA",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
           "DynamicColumns": true,
           "Name": "COA",
           "CatchNames": [],
@@ -242,9 +242,9 @@
         {
           "SerializationFormat": 1,
           "ConType": "Table",
-          "Worksheet": "PL",
-          "Range": "$A$1:$K$35",
-          "TableName": "PL",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
           "DynamicColumns": true,
           "Name": "PL",
           "CatchNames": [],
@@ -254,9 +254,9 @@
         {
           "SerializationFormat": 1,
           "ConType": "Table",
-          "Worksheet": "BS",
-          "Range": "$A$1:$I$4",
-          "TableName": "BS",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
           "DynamicColumns": true,
           "Name": "BS",
           "CatchNames": [],
