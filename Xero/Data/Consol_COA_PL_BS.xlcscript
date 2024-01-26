@@ -1,8 +1,8 @@
 {
   "ConType": "Api",
-  "Name": "Pull",
+  "Name": "Consol Pull",
   "RunOnWorkbookOpen": false,
-  "Transform": "xlc.setProgressMessage('Pulling data...')\r\nxero = require('xero.js')\r\n\r\nconns = Connections.filter(c => c.Pull)\r\nconn = conns[1]\r\n\r\nperiods = xero.periods(Year + '-' + Month, Periods)\r\nperiod = periods[0]\r\n\r\nxlc.setProgressMax(conns.length * periods.length)\r\n\r\nCOA = []\r\nPL = []\r\nBS = [] \r\n\r\nfor(conn of conns){\r\n\t\r\n\t// get coa \r\n\tcoa = xero.accounts(conn.TenantId, true)\r\n\tcoa.forEach(c => c.Company = conn.TenantName)\r\n\t\r\n\t// copy over existing Rollup \t\r\n\tfor(c of coa){\r\n\t\told = COA_Loopback.find(co => co.Company == c.Company && co.AccountID == c.AccountID)\t\t\r\n\t\tc.RollUp = old?.RollUp ?? ''\t\t\r\n\t}\t\r\n\t\r\n\tCOA.push(coa)\r\n\tcoaObj = Object.fromEntries(coa.map(c => [c.AccountID, c]))\r\n\t\r\n\tfor(period of periods){\r\n\t\t\t\t\r\n\t\txlc.progress(-1, `Pulling ${conn.TenantName} ${period.budgetPeriod}...`)\r\n\t\t\r\n\t\t// P&L \r\n\t\tpls = xero.profitAndLoss(conn.TenantId, conn.TenantName, period.fromDate, period.toDate, 'Accrual')\r\n\t\tfor(pl of pls){\r\n\t\t\tpl.Company = conn.TenantName\t\t\t\r\n\t\t\t\r\n\t\t\tacc = coaObj[pl.AccountID]\t\t\t\r\n\t\t\tpl.Class = acc.Class \r\n\t\t\tpl.Type = acc.Type\t\t\r\n\t\t\tpl.RollUp = '=XLOOKUP([@Company]&[@AccountID],COA[Company]&COA[AccountID],COA[RollUp])'\r\n\t\t}\t\t\r\n\t\tPL.push(pls)\r\n\t\t\r\n\t\t// BS \t\t\r\n\t\tbss = xero.balanceSheet(conn.TenantId, period.toDate)\r\n\t\tfor(bs of bss){\r\n\t\t\t\r\n\t\t\tbs.Company = conn.TenantName\t\t\t\r\n\t\t\t\r\n\t\t\tacc = coaObj[bs.AccountID]\t\t\t\r\n\t\t\tbs.Class = acc?.Class \r\n\t\t\tbs.Type = acc?.Type\t\t\t\r\n\t\t\tbs.RollUp = '=XLOOKUP([@Company]&[@AccountID],COA[Company]&COA[AccountID],COA[RollUp])'\r\n\t\t}\t\t\r\n\t\tBS.push(bs)\r\n\t}\t\r\n}\r\n\r\n// output \r\no = {\r\n\tCOA : COA.flat(),\r\n\tPL : PL.flat(),\r\n\tBS : BS.flat()\r\n}\r\n\r\n\r\n",
+  "Transform": "xlc.setProgressMessage('Pulling data...')\r\nxero = require('xero.js')\r\n\r\nconns = Connections.filter(c => c.Pull)\r\nconn = conns[1]\r\n\r\nperiods = xero.periods(Year + '-' + Month, Periods)\r\nperiod = periods[0]\r\n\r\nxlc.setProgressMax(conns.length * periods.length)\r\n\r\nCOA = []\r\nPL = []\r\nBS = [] \r\n\r\nfor(conn of conns){\r\n\t\r\n\t// get coa \r\n\tcoa = xero.accounts(conn.TenantId, true)\r\n\tcoa.forEach(c => c.Company = conn.TenantName)\r\n\t\r\n\t// copy over existing Rollup \r\n\tif(COA_Loopback){\r\n\t\tfor(c of coa){\r\n\t\t\told = COA_Loopback.find(co => co.Company == c.Company && co.AccountID == c.AccountID)\t\t\r\n\t\t\tc.RollUp = old?.RollUp ?? ''\t\t\r\n\t\t}\t\r\n\t} else { \r\n\t\tfor(c of coa){\t\t\t\r\n\t\t\tc.RollUp = ''\t\t\r\n\t\t}\t\r\n\t}\r\n\t\r\n\tCOA.push(coa)\r\n\tcoaObj = Object.fromEntries(coa.map(c => [c.AccountID, c]))\r\n\t\r\n\tfor(period of periods){\r\n\t\t\t\t\r\n\t\txlc.progress(-1, `Pulling ${conn.TenantName} ${period.budgetPeriod}...`)\r\n\t\t\r\n\t\t// P&L \r\n\t\tpls = xero.profitAndLoss(conn.TenantId, conn.TenantName, period.fromDate, period.toDate, 'Accrual')\r\n\t\tfor(pl of pls){\r\n\t\t\tpl.Company = conn.TenantName\t\t\t\r\n\t\t\t\r\n\t\t\tacc = coaObj[pl.AccountID]\t\t\r\n\t\t\tpl.AccountCode = acc.Code\r\n\t\t\tpl.AccountName = acc.Name\t\t\t\r\n\t\t\tpl.Type = acc.Type\t\t\r\n\t\t\tpl.Class = acc.Class \r\n\t\t\tpl.RollUp = '=XLOOKUP([@Company]&[@AccountID],COA[Company]&COA[AccountID],COA[RollUp])'\r\n\t\t}\t\t\r\n\t\tPL.push(pls)\r\n\t\t\r\n\t\t// BS \t\t\r\n\t\tbss = xero.balanceSheet(conn.TenantId, period.toDate)\r\n\t\tfor(bs of bss){\r\n\t\t\t\r\n\t\t\tbs.Company = conn.TenantName\t\t\t\r\n\t\t\t\r\n\t\t\tacc = coaObj[bs.AccountID]\t\r\n\t\t\tbs.AccountCode = acc.Code\r\n\t\t\tbs.AccountName = acc.Name\t\t\t\t\t\r\n\t\t\tbs.Type = acc.Type\t\t\t\r\n\t\t\tbs.Class = acc.Class \r\n\t\t\tbs.RollUp = '=XLOOKUP([@Company]&[@AccountID],COA[Company]&COA[AccountID],COA[RollUp])'\r\n\t\t}\t\t\r\n\t\tBS.push(bs)\r\n\t}\t\r\n}\r\n\r\n// output \r\no = {\r\n\tCOA : COA.flat(),\r\n\tPL : PL.flat(),\r\n\tBS : BS.flat()\r\n}\r\n\r\n\r\n",
   "ShowGui": true,
   "UrlHeaderMap": {
     "MessageType": null,
@@ -17,8 +17,8 @@
       {
         "SerializationFormat": 1,
         "ConType": "Table",
-        "Worksheet": "Companies",
-        "Range": "$B$13:$D$25",
+        "Worksheet": "Sheet1",
+        "Range": "$E$6:$G$18",
         "TableName": "Connections",
         "DynamicColumns": false,
         "Name": "Connections",
@@ -32,8 +32,8 @@
         "Name": "Year",
         "CatchNames": [],
         "Description": null,
-        "Worksheet": "Companies",
-        "Range": "$G$9",
+        "Worksheet": "Sheet1",
+        "Range": "$J$6",
         "ValidationMessage": null
       },
       {
@@ -42,8 +42,8 @@
         "Name": "Month",
         "CatchNames": [],
         "Description": null,
-        "Worksheet": "Companies",
-        "Range": "$G$10",
+        "Worksheet": "Sheet1",
+        "Range": "$J$7",
         "ValidationMessage": null
       },
       {
@@ -52,16 +52,16 @@
         "Name": "Periods",
         "CatchNames": [],
         "Description": null,
-        "Worksheet": "Companies",
-        "Range": "$G$11",
+        "Worksheet": "Sheet1",
+        "Range": "$J$8",
         "ValidationMessage": null
       },
       {
         "SerializationFormat": 1,
         "ConType": "Table",
-        "Worksheet": "COA",
-        "Range": "$A$1:$U$557",
-        "TableName": "COA",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
         "DynamicColumns": false,
         "Name": "COA_Loopback",
         "CatchNames": [
@@ -104,7 +104,7 @@
         "SerializationFormat": 1,
         "ConType": "Table",
         "Worksheet": "PL",
-        "Range": "$A$1:$I$35",
+        "Range": "$A$1:$K$35",
         "TableName": "PL",
         "DynamicColumns": true,
         "Name": "PL",
@@ -116,12 +116,22 @@
         "SerializationFormat": 1,
         "ConType": "Table",
         "Worksheet": "BS",
-        "Range": "$A$1:$G$4",
+        "Range": "$A$1:$I$4",
         "TableName": "BS",
         "DynamicColumns": true,
         "Name": "BS",
         "CatchNames": [],
         "Description": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Result",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
         "ValidationMessage": null
       }
     ],
@@ -146,8 +156,8 @@
         {
           "SerializationFormat": 1,
           "ConType": "Table",
-          "Worksheet": "Companies",
-          "Range": "$B$13:$D$25",
+          "Worksheet": "Sheet1",
+          "Range": "$E$6:$G$18",
           "TableName": "Connections",
           "DynamicColumns": false,
           "Name": "Connections",
@@ -161,8 +171,8 @@
           "Name": "Year",
           "CatchNames": [],
           "Description": null,
-          "Worksheet": "Companies",
-          "Range": "$G$9",
+          "Worksheet": "Sheet1",
+          "Range": "$J$6",
           "ValidationMessage": null
         },
         {
@@ -171,8 +181,8 @@
           "Name": "Month",
           "CatchNames": [],
           "Description": null,
-          "Worksheet": "Companies",
-          "Range": "$G$10",
+          "Worksheet": "Sheet1",
+          "Range": "$J$7",
           "ValidationMessage": null
         },
         {
@@ -181,16 +191,16 @@
           "Name": "Periods",
           "CatchNames": [],
           "Description": null,
-          "Worksheet": "Companies",
-          "Range": "$G$11",
+          "Worksheet": "Sheet1",
+          "Range": "$J$8",
           "ValidationMessage": null
         },
         {
           "SerializationFormat": 1,
           "ConType": "Table",
-          "Worksheet": "COA",
-          "Range": "$A$1:$U$557",
-          "TableName": "COA",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
           "DynamicColumns": false,
           "Name": "COA_Loopback",
           "CatchNames": [
@@ -233,7 +243,7 @@
           "SerializationFormat": 1,
           "ConType": "Table",
           "Worksheet": "PL",
-          "Range": "$A$1:$I$35",
+          "Range": "$A$1:$K$35",
           "TableName": "PL",
           "DynamicColumns": true,
           "Name": "PL",
@@ -245,12 +255,22 @@
           "SerializationFormat": 1,
           "ConType": "Table",
           "Worksheet": "BS",
-          "Range": "$A$1:$G$4",
+          "Range": "$A$1:$I$4",
           "TableName": "BS",
           "DynamicColumns": true,
           "Name": "BS",
           "CatchNames": [],
           "Description": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Result",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
           "ValidationMessage": null
         }
       ],
