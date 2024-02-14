@@ -1,0 +1,253 @@
+{
+  "ConType": "Api",
+  "Name": "COA_PL_Rollup",
+  "RunOnWorkbookOpen": false,
+  "Transform": "xlc.setProgressMessage('Pulling data from Xero..')\r\n\r\nutil = require('util.js')\r\nxero = require('xero.js')\r\n\r\n//xero.connections()\r\ntoDate = util.isoDate(Year, Month+1, 0)\r\n\r\nxlc.setProgressMax(Periods)\r\nprogress = 0\r\n\r\n// grab accounts \r\ncoa = xero.accounts(TenantID, true)\r\n\r\n// copy over old rollup \r\nif(COA_Old){\r\n\t// copy over existing values to retain them \r\n\tcoa.forEach(c => {\r\n\t\tc.Rollup = COA_Old.find(o => o.AccountID == c.AccountID)?.Rollup\r\n\t}) \r\n} else {\r\n\t// add columns so they're in the table already\r\n\tcoa.forEach(c => {\r\n\t\tc.Rollup = ''\r\n\t})\t\r\n}\r\nobjCOA = Object.fromEntries(coa.map(a => [a.AccountID, a]))\r\n\r\n// grab PL data \r\nperiods = xero.periods(toDate, Periods)\r\nplAccrual = []\r\nfor(period of periods){\r\n\t\r\n\txlc.setProgressValue(++progress)\r\n\txlc.setProgressMessage('Grabbing P&L data for ' + period.budgetPeriod + '...')\r\n\t\r\n\tpl = xero.profitAndLoss(TenantID, null, period.fromDate, period.toDate, 'Accrual', null, null)\r\n\tplAccrual = plAccrual.concat(pl)\r\n}\r\n\r\n// add extra columns \r\nfor(row of plAccrual){\r\n\tacc=objCOA[row.AccountID]\r\n\tif(acc){\r\n\t\trow.Code = acc.Code\r\n\t\trow.Type = acc.Type\r\n\t\trow.Class = acc.Class\r\n\t\trow.RollUp = '=XLOOKUP([@AccountID],COA[AccountID],COA[RollUp])'\r\n\t}\r\n}\r\n\r\n//create reply \r\no = {\t\r\n\tplAccrual,\r\n\tCOA : coa\r\n}\r\n\r\n\r\n\r\n",
+  "ShowGui": true,
+  "UrlHeaderMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 1,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "TenantID",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Year",
+        "CatchNames": [],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Month",
+        "CatchNames": [
+          "MonthNo"
+        ],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Periods",
+        "CatchNames": [
+          "A1"
+        ],
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
+        "DynamicColumns": false,
+        "Name": "COA_Old",
+        "CatchNames": [
+          "tplCOA"
+        ],
+        "Description": null,
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Input",
+    "CatchNames": [
+      "Params"
+    ],
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "ReplyMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 2,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
+        "DynamicColumns": true,
+        "Name": "plAccrual",
+        "CatchNames": [],
+        "Description": null,
+        "ValidationMessage": null
+      },
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
+        "DynamicColumns": true,
+        "Name": "COA",
+        "CatchNames": [],
+        "Description": null,
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Output",
+    "CatchNames": [
+      "Reply"
+    ],
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "Children": [
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 1,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "TenantID",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Year",
+          "CatchNames": [],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Month",
+          "CatchNames": [
+            "MonthNo"
+          ],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Periods",
+          "CatchNames": [
+            "A1"
+          ],
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
+          "DynamicColumns": false,
+          "Name": "COA_Old",
+          "CatchNames": [
+            "tplCOA"
+          ],
+          "Description": null,
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Input",
+      "CatchNames": [
+        "Params"
+      ],
+      "Description": null,
+      "ValidationMessage": null
+    },
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 2,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
+          "DynamicColumns": true,
+          "Name": "plAccrual",
+          "CatchNames": [],
+          "Description": null,
+          "ValidationMessage": null
+        },
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
+          "DynamicColumns": true,
+          "Name": "COA",
+          "CatchNames": [],
+          "Description": null,
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Output",
+      "CatchNames": [
+        "Reply"
+      ],
+      "Description": null,
+      "ValidationMessage": null
+    }
+  ]
+}
