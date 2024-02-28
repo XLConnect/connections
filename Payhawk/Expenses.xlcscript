@@ -20,8 +20,8 @@
         "Name": "AccountId",
         "CatchNames": [],
         "Description": null,
-        "Worksheet": "Sheet1",
-        "Range": "$C$2",
+        "Worksheet": null,
+        "Range": null,
         "ValidationMessage": null
       }
     ],
@@ -45,23 +45,13 @@
       {
         "SerializationFormat": 1,
         "ConType": "Table",
-        "Worksheet": "Sheet1",
-        "Range": "$B$4:$AM$26",
-        "TableName": "Expenses",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
         "DynamicColumns": true,
         "Name": "Expenses",
         "CatchNames": [],
         "Description": null,
-        "ValidationMessage": null
-      },
-      {
-        "ConType": "Prop",
-        "IsKey": false,
-        "Name": "Result",
-        "CatchNames": [],
-        "Description": null,
-        "Worksheet": null,
-        "Range": null,
         "ValidationMessage": null
       }
     ],
@@ -89,8 +79,8 @@
           "Name": "AccountId",
           "CatchNames": [],
           "Description": null,
-          "Worksheet": "Sheet1",
-          "Range": "$C$2",
+          "Worksheet": null,
+          "Range": null,
           "ValidationMessage": null
         }
       ],
@@ -114,23 +104,13 @@
         {
           "SerializationFormat": 1,
           "ConType": "Table",
-          "Worksheet": "Sheet1",
-          "Range": "$B$4:$AM$26",
-          "TableName": "Expenses",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
           "DynamicColumns": true,
           "Name": "Expenses",
           "CatchNames": [],
           "Description": null,
-          "ValidationMessage": null
-        },
-        {
-          "ConType": "Prop",
-          "IsKey": false,
-          "Name": "Result",
-          "CatchNames": [],
-          "Description": null,
-          "Worksheet": null,
-          "Range": null,
           "ValidationMessage": null
         }
       ],
