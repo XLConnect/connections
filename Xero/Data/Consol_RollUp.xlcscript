@@ -1,0 +1,259 @@
+{
+  "ConType": "Api",
+  "Name": "Consol Pull",
+  "RunOnWorkbookOpen": false,
+  "Transform": "\r\nxlc.setProgressMessage('Pulling data...')\r\nxero = require('xero.js')\r\nutil = require('util.js')\r\n\r\nConnections = Connections ??  xero.connections().map(c => ({\r\n\t\tTenantId : c.tenantId,\r\n\t\tTenantName : c.tenantName,\r\n\t\tPull : 'x'\r\n\t}))\r\nconns = Connections.filter(c => c.Pull)\r\nif(conns.length==0) throw \"Please mark connections to pull with an 'x'\"\r\n\r\n// set defaults for omitted variables \r\neoLast = util.eOMonth(util.utcCToday(), -1)\r\nYear = Year ?? eoLast.getFullYear()\r\nMonth = Month ?? eoLast.getMonth() + 1\r\nPeriods = Periods ?? 1\r\n\r\n// get periods \r\nperiods = xero.periods(Year + '-' + Month, Periods)\r\n\r\n\r\nxlc.setProgressMax(conns.length * periods.length)\r\nprogress = 0\r\n\r\nCOAs = []\r\nPL = []\r\nBS = [] \r\n\r\nfor(conn of conns){\r\n\t// conn = conns[1]\r\n\t\r\n\t// get coa \r\n\tcoa = xero.accounts(conn.TenantId, true)\r\n\tcoa.forEach(c => c.Company = conn.TenantName)\r\n\t\r\n\t// copy over existing Rollup \r\n\tif(COA){\r\n\t\tfor(c of coa){\r\n\t\t\told = COA.find(co => co.Company == c.Company && co.AccountID == c.AccountID)\t\t\r\n\t\t\tc.RollUp = old?.RollUp ?? ''\t\t\r\n\t\t\tc.Eliminate = old?.Eliminate ?? false\r\n\t\t}\t\r\n\t} else { \r\n\t\tfor(c of coa){\t\t\t\r\n\t\t\tc.RollUp = ''\t\r\n\t\t\tc.Eliminate = false \r\n\t\t}\t\r\n\t}\r\n\t\r\n\tCOAs.push(coa)\r\n\tcoaObj = Object.fromEntries(coa.map(c => [c.AccountID, c]))\r\n\t\r\n\tfor(period of periods){\r\n\t\t// period = periods[0]\r\n\t\t\r\n\t\txlc.setProgressMessage(`Pulling ${conn.TenantName} ${period.budgetPeriod}...`)\r\n\t\txlc.setProgressValue(++progress)\r\n\t\t\r\n\t\t// P&L \r\n\t\tpls = xero.profitAndLoss(conn.TenantId, conn.TenantName, period.fromDate, period.toDate, 'Accrual')\r\n\t\tfor(pl of pls){\r\n\t\t\t\r\n\t\t\tpl.Company = conn.TenantName\t\t\t\r\n\t\t\t\r\n\t\t\tacc = coaObj[pl.AccountID]\t\t\r\n\t\t\tpl.AccountCode = acc.Code\r\n\t\t\tpl.AccountName = acc.Name\t\t\t\r\n\t\t\tpl.Type = acc.Type\t\t\r\n\t\t\tpl.Class = acc.Class \r\n\t\t}\t\t\r\n\t\tPL.push(pls)\r\n\t\t\r\n\t\t// BS \t\t\r\n\t\tbss = xero.balanceSheet(conn.TenantId, period.toDate)\r\n\t\tfor(bs of bss){\r\n\t\t\t\r\n\t\t\tbs.Company = conn.TenantName\t\t\t\r\n\t\t\t\r\n\t\t\tacc = coaObj[bs.AccountID]\t\r\n\t\t\tbs.AccountCode = acc.Code\r\n\t\t\tbs.AccountName = acc.Name\t\t\t\t\t\r\n\t\t\tbs.Type = acc.Type\t\t\t\r\n\t\t\tbs.Class = acc.Class \r\n\t\t\tbs.RollUp = '=XLOOKUP([@Company]&[@AccountID],COA[Company]&COA[AccountID],COA[RollUp])'\r\n\t\t}\t\t\r\n\t\tBS.push(bss)\r\n\t}\t\r\n}\r\n\r\n// output \r\no = {\r\n\tCOA : COAs.flat(),\r\n\tPL : PL.flat(),\r\n\tBS : BS.flat()\r\n}\r\n\r\n\r\n",
+  "ShowGui": true,
+  "UrlHeaderMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 1,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
+        "DynamicColumns": true,
+        "Name": "Connections",
+        "Description": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Year",
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Month",
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Periods",
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
+        "DynamicColumns": false,
+        "Name": "COA",
+        "Description": null,
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Input",
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "ReplyMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 2,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
+        "DynamicColumns": true,
+        "Name": "COA",
+        "Description": null,
+        "ValidationMessage": null
+      },
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
+        "DynamicColumns": true,
+        "Name": "PL",
+        "Description": null,
+        "ValidationMessage": null
+      },
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
+        "DynamicColumns": true,
+        "Name": "BS",
+        "Description": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Result",
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Output",
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "Children": [
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 1,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
+          "DynamicColumns": true,
+          "Name": "Connections",
+          "Description": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Year",
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Month",
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Periods",
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
+          "DynamicColumns": false,
+          "Name": "COA",
+          "Description": null,
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Input",
+      "Description": null,
+      "ValidationMessage": null
+    },
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 2,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
+          "DynamicColumns": true,
+          "Name": "COA",
+          "Description": null,
+          "ValidationMessage": null
+        },
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
+          "DynamicColumns": true,
+          "Name": "PL",
+          "Description": null,
+          "ValidationMessage": null
+        },
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
+          "DynamicColumns": true,
+          "Name": "BS",
+          "Description": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Result",
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Output",
+      "Description": null,
+      "ValidationMessage": null
+    }
+  ]
+}
