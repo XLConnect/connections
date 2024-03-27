@@ -1,0 +1,135 @@
+{
+  "ConType": "Api",
+  "Name": "Invoices",
+  "RunOnWorkbookOpen": false,
+  "Transform": "http = require('http.js')\r\nxero = require('xero.js')\r\n\r\n/* \r\nsee here for insctructions  on how to build the Where statement: \r\n\thttps://developer.xero.com/documentation/api/accounting/invoices#optimised-use-of-the-where-filter\r\n\r\nfew examples: \r\n\tType==\"ACCREC\" AND Date>=DateTime(2023,01,01) AND Date<=DateTime(2023,12,31)\r\n\tType==\"ACCPAY\" AND Status==\"AUTHORISED\"\r\n\r\n*/\r\n\r\n// build xero header \r\nhds = xero.xeroHeader(TenantID)\r\n\r\n// defauult filter \r\napi = 'Invoices' + (Where ? '?where=' + Where : '')\r\nuri = xero.baseURL + api\r\n\r\nInvoices = http.get(uri, hds, 'xero').Invoices\r\n\r\no = {\r\n\tInvoices\r\n}",
+  "ShowGui": true,
+  "UrlHeaderMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 1,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "TenantID",
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      },
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "Where",
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Input",
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "ReplyMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 2,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
+        "DynamicColumns": false,
+        "Name": "Invoices",
+        "Description": null,
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Output",
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "Children": [
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 1,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "TenantID",
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        },
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "Where",
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Input",
+      "Description": null,
+      "ValidationMessage": null
+    },
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 2,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
+          "DynamicColumns": false,
+          "Name": "Invoices",
+          "Description": null,
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Output",
+      "Description": null,
+      "ValidationMessage": null
+    }
+  ]
+}
