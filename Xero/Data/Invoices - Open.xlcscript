@@ -1,0 +1,139 @@
+{
+  "ConType": "Api",
+  "Name": "Invoices",
+  "RunOnWorkbookOpen": false,
+  "Transform": "http = require('http.js')\r\nxero = require('xero.js')\r\n\r\nhds = xero.xeroHeader(TenantID)\r\n\r\napi = 'Invoices?summaryOnly=true&Statuses=AUTHORISED'\r\nuri = xero.baseURL + api\r\n\r\ninvs = http.get(uri, hds, 'xero').Invoices\r\n\r\no = {\r\n\tACCREC : invs.filter(i => i.Type == 'ACCREC'),\r\n\tACCPAY : invs.filter(i => i.Type == 'ACCPAY')\r\n}",
+  "ShowGui": true,
+  "UrlHeaderMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 1,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "ConType": "Prop",
+        "IsKey": false,
+        "Name": "TenantID",
+        "Description": null,
+        "Worksheet": null,
+        "Range": null,
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Input",
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "ReplyMap": {
+    "MessageType": null,
+    "ConType": "Map",
+    "DefaultFolder": null,
+    "Direction": 2,
+    "Library": "Default",
+    "PathTemplate": "{wb.loc}/{Name}.{ext}",
+    "DynamicConnections": true,
+    "HasKeyFields": false,
+    "Children": [
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
+        "DynamicColumns": true,
+        "Name": "ACCREC",
+        "Description": null,
+        "ValidationMessage": null
+      },
+      {
+        "SerializationFormat": 1,
+        "ConType": "Table",
+        "Worksheet": null,
+        "Range": null,
+        "TableName": null,
+        "DynamicColumns": true,
+        "Name": "ACCPAY",
+        "Description": null,
+        "ValidationMessage": null
+      }
+    ],
+    "Worksheet": null,
+    "Range": null,
+    "Name": "Output",
+    "Description": null,
+    "ValidationMessage": null
+  },
+  "Children": [
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 1,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "ConType": "Prop",
+          "IsKey": false,
+          "Name": "TenantID",
+          "Description": null,
+          "Worksheet": null,
+          "Range": null,
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Input",
+      "Description": null,
+      "ValidationMessage": null
+    },
+    {
+      "MessageType": null,
+      "ConType": "Map",
+      "DefaultFolder": null,
+      "Direction": 2,
+      "Library": "Default",
+      "PathTemplate": "{wb.loc}/{Name}.{ext}",
+      "DynamicConnections": true,
+      "HasKeyFields": false,
+      "Children": [
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
+          "DynamicColumns": true,
+          "Name": "ACCREC",
+          "Description": null,
+          "ValidationMessage": null
+        },
+        {
+          "SerializationFormat": 1,
+          "ConType": "Table",
+          "Worksheet": null,
+          "Range": null,
+          "TableName": null,
+          "DynamicColumns": true,
+          "Name": "ACCPAY",
+          "Description": null,
+          "ValidationMessage": null
+        }
+      ],
+      "Worksheet": null,
+      "Range": null,
+      "Name": "Output",
+      "Description": null,
+      "ValidationMessage": null
+    }
+  ]
+}
