@@ -55,14 +55,6 @@
         "Name": "Invoices",
         "Description": null,
         "ValidationMessage": null
-      },
-      {
-        "ConType": "Prop",
-        "Name": "Result",
-        "Description": null,
-        "Worksheet": null,
-        "Range": null,
-        "ValidationMessage": null
       }
     ],
     "Worksheet": null,
@@ -122,14 +114,6 @@
           "DynamicColumns": true,
           "Name": "Invoices",
           "Description": null,
-          "ValidationMessage": null
-        },
-        {
-          "ConType": "Prop",
-          "Name": "Result",
-          "Description": null,
-          "Worksheet": null,
-          "Range": null,
           "ValidationMessage": null
         }
       ],
