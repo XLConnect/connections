@@ -1,8 +1,8 @@
 {
   "ConType": "Api",
-  "Name": "Invoices",
+  "Name": "Invoices - Open",
   "RunOnWorkbookOpen": false,
-  "Transform": "http = require('http.js')\r\nxero = require('xero.js')\r\n\r\nhds = xero.xeroHeader(TenantID)\r\n\r\napi = 'Invoices?summaryOnly=true&Statuses=AUTHORISED'\r\nuri = xero.baseURL + api\r\n\r\ninvs = http.get(uri, hds, 'xero').Invoices\r\n\r\no = {\r\n\tACCREC : invs.filter(i => i.Type == 'ACCREC'),\r\n\tACCPAY : invs.filter(i => i.Type == 'ACCPAY')\r\n}",
+  "Transform": "http = require('http.js')\r\nxero = require('xero.js')\r\n\r\nhds = xero.xeroHeader(TenantID)\r\norg = xero.Organisation(TenantID)\r\n\r\nuri = xero.baseURL + 'Invoices?summaryOnly=true&Statuses=AUTHORISED'\r\ninvs = http.get(uri, hds, 'xero').Invoices\r\n\r\n// select columns \r\ninvsClean = invs.map(j => ({\r\n\t\r\n\tType : j.Type, \r\n\tInvoiceNumber : j.InvoiceNumber,\r\n\tReference : j.Reference,\t\r\n\tContact : j.Contact.Name,\r\n\t\r\n\tDate : xero.parseXeroDate(j.Date),\t\r\n\tDueDate : xero.parseXeroDate(j.DueDate),\r\n\t\r\n\tSubTotal : j.SubTotal,\r\n\tTotalTax : j.TotalTax,\r\n\tTotal : j.total,\r\n\t\r\n\tAmountDue : j.AmountDue,\r\n\tAmountPaid : j.AmountPaid,\r\n\tAmountCredited : j.AmountCredited,\r\n\t\r\n\tCurrencyCode : j.CurrencyCode,\r\n\tCurrencyRate : j.CurrencyRate,\r\n\t\r\n\tInvoiceID : j.InvoiceID,\r\n\tUrl : j.Url,\r\n\tdeepLink : xero.deepLink(org.ShortCode, j.Type, j.InvoiceID)\r\n}))\r\n\r\n// split into two sets\r\no = {\r\n\tACCREC : invsClean.filter(i => i.Type == 'ACCREC'),\r\n\tACCPAY : invsClean.filter(i => i.Type == 'ACCPAY')\r\n}",
   "ShowGui": true,
   "UrlHeaderMap": {
     "MessageType": null,
@@ -12,11 +12,9 @@
     "Library": "Default",
     "PathTemplate": "{wb.loc}/{Name}.{ext}",
     "DynamicConnections": true,
-    "HasKeyFields": false,
     "Children": [
       {
         "ConType": "Prop",
-        "IsKey": false,
         "Name": "TenantID",
         "Description": null,
         "Worksheet": null,
@@ -38,7 +36,6 @@
     "Library": "Default",
     "PathTemplate": "{wb.loc}/{Name}.{ext}",
     "DynamicConnections": true,
-    "HasKeyFields": false,
     "Children": [
       {
         "SerializationFormat": 1,
@@ -78,11 +75,9 @@
       "Library": "Default",
       "PathTemplate": "{wb.loc}/{Name}.{ext}",
       "DynamicConnections": true,
-      "HasKeyFields": false,
       "Children": [
         {
           "ConType": "Prop",
-          "IsKey": false,
           "Name": "TenantID",
           "Description": null,
           "Worksheet": null,
@@ -104,7 +99,6 @@
       "Library": "Default",
       "PathTemplate": "{wb.loc}/{Name}.{ext}",
       "DynamicConnections": true,
-      "HasKeyFields": false,
       "Children": [
         {
           "SerializationFormat": 1,
